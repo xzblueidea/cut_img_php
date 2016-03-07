@@ -1,0 +1,59 @@
+<!DOCTYPE html>  
+<html xmlns="http://www.w3.org/1999/xhtml">  
+<head>  
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>  
+    <title></title>  
+    <link href="./jquery.Jcrop.min.css" rel="stylesheet" />  
+    <script src="./jquery.min.js"></script>  
+    <script src="./jquery.Jcrop.min.js"></script>  
+    <script src="./ini.js"></script>  
+    <script>  
+        $(function () {  
+  
+            var btn = $("#Button1");  
+  
+            btn.cropperUpload({  
+                url: "./cut_img.php",  
+                fileSuffixs: ["jpg", "png", "bmp"],  
+                errorText: "{0}",  
+                onComplete: function (msg) {  //上传之后的回调函数
+                    $("#xx").html(msg);  
+                },  
+                cropperParam: {//Jcrop参数设置，除onChange和onSelect不要使用，其他属性都可用  
+                   // maxSize: [100, 100],//不要小于50，如maxSize:[40,24]  
+                   // minSize: [70, 70],//不要小于50，如minSize:[40,24] 
+				   //开启配合showCoords方法可以看到事实到那时会影响到上传的xywh等参数
+					//onChange:   showCoords,
+					//onSelect:   showCoords,
+				   aspectRatio:2/1,
+                    bgColor: "black",  
+                    bgOpacity: .4,  
+                    //allowResize: false,  
+                    allowSelect: false,  
+                    animationDelay:50  
+                },  
+                perviewImageElementId: "fileList", //设置预览图片的元素id    
+                perviewImgStyle: { width: '100%', border: '1px solid #ebebeb' }//设置预览图片的样式    
+            });  
+  
+            var upload = btn.data("uploadFileData");  
+  
+            $("#files").click(function () {  
+                upload.submitUpload();  
+            }); 			
+        });  
+    </script>  
+</head>  
+<body>  
+    <div style="width:1100px; height: 600px;"> 
+			<div style="hright:100px;">
+				<input id="Button1" type="button" value="选择文件" />    
+				<input id="files" type="button" value="上传截图" />  
+			</div>
+            <div id="fileList" style="float:left;margin-top: 10px;width:600px;height:500px;">          
+           
+		   </div>  
+			<div id="xx" style="height:400px;float:right;"></div>
+    </div>   	
+</body>  
+</html> 
